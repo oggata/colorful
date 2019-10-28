@@ -1,5 +1,5 @@
 var httpProvider = "https://rinkeby.infura.io/";
-var contractAddress = "0xe2e55bdec052ff7c8ef11d73f045d9d9c15ce61e";
+var contractAddress = "0x3d7a94657173d42d7007a0ebc19fa85b9d5813bc";
 var etherScanURL = "https://rinkeby.etherscan.io/tx/";
 
 const fs = require('fs');
@@ -16,7 +16,7 @@ if (typeof web3 !== 'undefined') {
     web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/dbffb59cd462432aaa7997abedf8d6b7"));
 }
 
-var JunkBotContract = function () {
+var ColorfulContract = function () {
     this.abi = JSON.parse(fs.readFileSync('./contracts/abi/token.abi', "utf8"));
     this.address_from = null;
     this.address_from_pk = null;
@@ -46,5 +46,5 @@ var JunkBotContract = function () {
         });
     };
 };
-module.exports = JunkBotContract;
+module.exports = ColorfulContract;
 

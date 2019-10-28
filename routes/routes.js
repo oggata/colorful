@@ -14,37 +14,18 @@ console.log = function (d) {
     log_stdout.write(util.format(d) + '\n');
 };
 
-/*
-app.get('/detail/:id', function (req, res) {
-	console.log(req.params.id);
-    res.render('detail', {
-        title: 'detail',
-        charactor_id: req.params.id,
-    });
-
-res.render('planet', {
-        title: 'AAAAAAAAA',
-        charactor_id: req.params.id,
-    });
-
-});
-*/
-
 
 app.get('/play', function (req, res) {
     res.render('play', {
         title: 'play'
     });
 });
-
 app.get('/list', function (req, res) {
     res.render('list', {
         title: 'list'
     });
 });
 
-
-//<------------API2----------------->
 var colorful = require('./colorful.js');
 app.get('/opensea/tokens/:id', colorful.get_bot_json_data);
 

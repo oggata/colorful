@@ -4,24 +4,24 @@ var account = null;
 var currentPage = getParam('page');
 
 var token_contract;
-var material_contract;
-var player_contract;
+//var material_contract;
+//var player_contract;
 
 var token_abi;
 var material_abi;
 var player_abi;
 
 var junkallstars_erc721token_address = "";
-var junkallstars_materials_address = "";
-var junkallstars_player_contract_address = "";
+//var junkallstars_materials_address = "";
+//var junkallstars_player_contract_address = "";
 
-var rinkeby_junkallstars_materials_address = "0x1d20f60e57efa003a7c2cdbe4ca4660ad32e3a25";
-var rinkeby_junkallstars_erc721token_address = "0xe2e55bdec052ff7c8ef11d73f045d9d9c15ce61e";
-var rinkeby_junkallstars_player_contract_address = "0x8021e85a12122a4e9982f274d9c90682a62b42a3";
+//var rinkeby_junkallstars_materials_address = "0x1d20f60e57efa003a7c2cdbe4ca4660ad32e3a25";
+var rinkeby_junkallstars_erc721token_address = "0x3d7a94657173d42d7007a0ebc19fa85b9d5813bc";
+//var rinkeby_junkallstars_player_contract_address = "0x8021e85a12122a4e9982f274d9c90682a62b42a3";
 
-var mainnet_junkallstars_materials_address = "0x1d20f60e57efa003a7c2cdbe4ca4660ad32e3a25";
-var mainnet_junkallstars_erc721token_address = "0xe2e55bdec052ff7c8ef11d73f045d9d9c15ce61e";
-var mainnet_junkallstars_player_contract_address = "0x8021e85a12122a4e9982f274d9c90682a62b42a3";
+//var mainnet_junkallstars_materials_address = "0x1d20f60e57efa003a7c2cdbe4ca4660ad32e3a25";
+var mainnet_junkallstars_erc721token_address = "0x3d7a94657173d42d7007a0ebc19fa85b9d5813bc";
+//var mainnet_junkallstars_player_contract_address = "0x8021e85a12122a4e9982f274d9c90682a62b42a3";
 
 var cardcodes = [];
 
@@ -110,8 +110,8 @@ $(document).ready(function () {
     function hoge(array) {
         //console.log(array[0]);
         token_abi = JSON.parse(array[0]);
-        material_abi = JSON.parse(array[1]);
-        player_abi = JSON.parse(array[2]);
+        //material_abi = JSON.parse(array[1]);
+        //player_abi = JSON.parse(array[2]);
         var accountInterval = setInterval(function () {
             if (web3.eth.accounts[0] !== account) {
                 account = web3.eth.accounts[0];
@@ -122,8 +122,8 @@ $(document).ready(function () {
     const promise = Promise.all(
         [
             openFile('/contracts/abi/token.abi?201907'),
-            openFile('/contracts/abi/material.abi?201907'),
-            openFile('/contracts/abi/player.abi?201907'),
+            //openFile('/contracts/abi/material.abi?201907'),
+            //openFile('/contracts/abi/player.abi?201907'),
         ]);
     promise.then(
         (xhrArray) => hoge(xhrArray));
@@ -136,8 +136,8 @@ var init = function () {
         }
         if (networkId == 4) {
             junkallstars_erc721token_address = rinkeby_junkallstars_erc721token_address;
-            junkallstars_materials_address =  rinkeby_junkallstars_materials_address;
-            junkallstars_player_contract_address = rinkeby_junkallstars_player_contract_address;
+            //junkallstars_materials_address =  rinkeby_junkallstars_materials_address;
+            //junkallstars_player_contract_address = rinkeby_junkallstars_player_contract_address;
         }
         if (networkId != 4) {
             if (networkId == 1) {
@@ -171,9 +171,10 @@ var init = function () {
     /////////////////////////
     //コントラクトの基本情報を取得
     token_contract = web3.eth.contract(token_abi).at(junkallstars_erc721token_address);
-    material_contract = web3.eth.contract(material_abi).at(junkallstars_materials_address);
-    player_contract = web3.eth.contract(player_abi).at(junkallstars_player_contract_address);
+    //material_contract = web3.eth.contract(material_abi).at(junkallstars_materials_address);
+    //player_contract = web3.eth.contract(player_abi).at(junkallstars_player_contract_address);
 
+/*
     player_contract.getPlayerStatus(account, (error, result) => {
         if (document.getElementById("coin_amount")) {
             document.getElementById("coin_amount").value = result[0];
@@ -191,7 +192,7 @@ var init = function () {
             document.getElementById("total_coin_amount").value = result[4];
         }
     });
-    
+*/
     /*
         token_contract.getTotalCoinAmount(account, (error, result) => {
             if (document.getElementById("getTotalCoinAmount")) {
@@ -204,11 +205,13 @@ var init = function () {
                 document.getElementById("totalSupply").value = result;
             }
         });
+        /*
         material_contract.balanceOf(account, (error, result) => {
             if (document.getElementById("balanceOf")) {
                 document.getElementById("balanceOf").value = result;
             }
         });
+        */
         token_contract.totalSupply((error, result) => {
             if (document.getElementById("totalSupply")) {
                 document.getElementById("totalSupply").value = result;
@@ -519,11 +522,13 @@ function timeConverter(UNIX_timestamp) {
     return time;
 }
 
+/*
 function mint(account) {
     material_contract.approveAndCall("0x78be343476ccad513067d218f6697c63b9d12ef4", 100, "0x00", {
         value: web3.toWei(0, "wei")
     }, (error, txid) => {});
 }
+*/
 
 function sendAllCoinToWallet() {
     token_contract.sendAllCoinToWallet({

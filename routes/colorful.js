@@ -1,10 +1,10 @@
 
 var Hashids = require("hashids");
 
-var JunkallstarsContract = require('../app/junkallstars_contract.js');
+var ColorfulContract = require('../app/colorful_contract.js');
 
 exports.get_bot_json_data = async function (req, res) {
-    var wm = new JunkallstarsContract();
+    var wm = new ColorfulContract();
     var _data = await wm.getCardData(req.param('id'));
     var _seqId = _data[0];
     var _price =  _data[1];
@@ -18,10 +18,12 @@ exports.get_bot_json_data = async function (req, res) {
     var _timestamp = _data[10];
 
     var _strCode = "" + _code + "";
+    /*
     var _cid = 1;
     if(0 <= _seqId &&_seqId < 99999){
         _cid = _strCode.slice(0,2);
     }
+    */
     var _num1 = _strCode.slice(9);
     var _keyNum = "key__" + _num1;
 
@@ -33,15 +35,11 @@ exports.get_bot_json_data = async function (req, res) {
     _json += '"name": "' + _name + '",';
     _json += '"image": "https://oggata-colorful.glitch.me/images/opensea/001.png",';
     _json += '"background_color": "ffffff",';
-    _json += '"symbol": "JAT",';
+    _json += '"symbol": "COR",';
     _json += '"description": "find new",';
     _json += '"external_url": "https://oggata-colorful.glitch.me/' + _seqId + '",';
     _json += '"wiki_link": "https://opensea.readme.io/page/cryptokitties",';
     _json += '"attributes": [';
-    _json += '    {';
-    _json += '      "trait_type": "cid", ';
-    _json += '      "value": "' + _cid + '"';
-    _json += '    }, ';
     _json += '    {';
     _json += '      "trait_type": "code", ';
     _json += '      "value": "' + _code + '"';

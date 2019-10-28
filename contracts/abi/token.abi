@@ -39,6 +39,29 @@
         "constant": false,
         "inputs": [
             {
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "bulkMint",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
                 "name": "amount",
                 "type": "uint256"
             }
@@ -53,41 +76,11 @@
         "constant": false,
         "inputs": [
             {
-                "name": "_amount",
-                "type": "uint256"
-            },
-            {
                 "name": "_to",
                 "type": "address"
             }
         ],
         "name": "mint",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_from",
-                "type": "address"
-            },
-            {
-                "name": "_value",
-                "type": "uint256"
-            },
-            {
-                "name": "_token",
-                "type": "address"
-            },
-            {
-                "name": "_extraData",
-                "type": "bytes32"
-            }
-        ],
-        "name": "receiveApproval",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -190,21 +183,7 @@
                 "type": "address"
             }
         ],
-        "name": "setJunkallstarsControlContract",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_contractAddress",
-                "type": "address"
-            }
-        ],
-        "name": "setJunkallstarsMaterialsContract",
+        "name": "setColorfulControlContract",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -353,25 +332,6 @@
         "constant": true,
         "inputs": [
             {
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "addressToJunkallstarsMaterialsDeposit",
-        "outputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
                 "name": "owner",
                 "type": "address"
             }
@@ -423,6 +383,20 @@
             {
                 "name": "",
                 "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "ccc",
+        "outputs": [
+            {
+                "name": "",
+                "type": "address"
             }
         ],
         "payable": false,
@@ -568,34 +542,6 @@
             {
                 "name": "",
                 "type": "bool"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "jam",
-        "outputs": [
-            {
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "jcc",
-        "outputs": [
-            {
-                "name": "",
-                "type": "address"
             }
         ],
         "payable": false,
