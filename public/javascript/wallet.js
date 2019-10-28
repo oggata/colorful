@@ -67,7 +67,7 @@ $(document).ready(function () {
     if (!window.localStorage) {
         alert("お使いのブラウザはlocalstorageに対応してません。");
     }
-    //getAccount2();
+    getAccount2();
     window.addEventListener('load', function () {
         if (typeof web3 !== 'undefined') {
             console.log('Web3：' + web3.currentProvider.constructor.name);
@@ -193,25 +193,11 @@ var init = function () {
         }
     });
 */
-    /*
-        token_contract.getTotalCoinAmount(account, (error, result) => {
-            if (document.getElementById("getTotalCoinAmount")) {
-                document.getElementById("getTotalCoinAmount").value = result;
-            }
-        });
-    */
         token_contract.totalSupply((error, result) => {
             if (document.getElementById("totalSupply")) {
                 document.getElementById("totalSupply").value = result;
             }
         });
-        /*
-        material_contract.balanceOf(account, (error, result) => {
-            if (document.getElementById("balanceOf")) {
-                document.getElementById("balanceOf").value = result;
-            }
-        });
-        */
         token_contract.totalSupply((error, result) => {
             if (document.getElementById("totalSupply")) {
                 document.getElementById("totalSupply").value = result;
@@ -221,20 +207,15 @@ var init = function () {
     if (document.getElementById("wallet_address")) {
         document.getElementById("wallet_address").value = account;
     }
-    //残高の確認
     web3.eth.getBalance(account, (error, balance) => {
         if (error) {
-            //console.log("error:");
-            //console.log(error);
         } else {
-            //console.log("balance:");
-            //console.log(balance);
             if (document.getElementById("wallet_balance")) {
                 document.getElementById("wallet_balance").value = balance / 1000000000000000000;
             }
         }
     });
-    //保有する惑星情報を取得する
+
     var _owneddata = asyncGetCardData(account);
     _owneddata.then(function (result) {
         // Create the main TABLE elements
@@ -285,37 +266,12 @@ var init = function () {
             tdElement4.setAttribute('style', 'padding:13px 5px;border-bottom:1px solid #f0f0f0;');
             tdElement5.setAttribute('style', 'padding:1px 2px;border-bottom:1px solid #f0f0f0;');
             tdElement6.setAttribute('style', 'padding:13px 5px;border-bottom:1px solid #f0f0f0;');
-            /*
-            uintArray[0] = _seqId;
-            uintArray[1] = cards[_seqId].price;
-            uintArray[2] = cards[_seqId].code;
-            uintArray[3] = cards[_seqId].ctype;
-            uintArray[4] = cards[_seqId].exp;
-            uintArray[5] = cards[_seqId].cooldownFinishTime;
-            uintArray[6] = cards[_seqId].isSold;
-            uintArray[7] = cards[_seqId].createdAt;
-            uintArray[8] = cards[_seqId].updatedAt;
-            uintArray[9] = cards[_seqId].blocknum;
-            uintArray[10] = cards[_seqId].timestamp;
-            */
-
-            /*
-            var _planetId = con[0]["c"][0];
-            var _planetImageNumber = con[3]["c"][0];
-            var _tokenId = con[0];
-            var _price = con[1];
-            var _tokenAmount = con[2];
-            //var _monsterId = con[3];
-            var _serialNum = con[4];
-            var _maxMintNum = con[5];
-            var _createdAt = con[6];
-            var _mintCnt = con[10];
-            */
 
             var _tokenId = con[0];
             var _code = con[2];
+            var _ctype = con[3];
             var _createdAt = con[6];
-            var _imageUrl = "/images/opensea/001.png";
+            var _imageUrl = "/images/opensea/" + _ctype + ".png";
             if (i == 0) {
                 tdElement1.innerHTML = '<div class="rsample"><img src="' + _imageUrl + '" width="200px"><span>new</span></div>'
             } else {
@@ -425,87 +381,6 @@ msg_contract
     msg_contract.setMessage('ogt1',{
         value: web3.toWei(0, "wei")
     }, (error, txid) => {});
-
-    //console.log(cardcodes);
-    alert("hello2");
-
-
-
-/*
-
-{
-  "server_account": {
-    "privateKey": "86EDC9135CBF106D3016B2CB3C4BF73992D926920972EBDE25EA167BD53C8A35",
-    "address": "0x4aF32E2d62B934Ad60bc9FB9bF3D4765E94cF387"
-  },
-  "client_account": {
-    "privateKey": "015B835959DA5F9AE385783A0375B674B20DE1D37BF0F9D6501073B4BE9F1CCC",
-    "address": "0x12788d8D354E5b137032386aA69400d93Ec15B31"
-  }
-}
-
-*/
-
-const MetaTransactionClient = require('../lib/metaTransactionClient');
-const MetaTransactionServer = require('../lib/metaTransactionServer');
-
-var server_account_private_key = "86EDC9135CBF106D3016B2CB3C4BF73992D926920972EBDE25EA167BD53C8A35";
-var server_account_address = "0x4aF32E2d62B934Ad60bc9FB9bF3D4765E94cF387";
-var client_account_private_key = "015B835959DA5F9AE385783A0375B674B20DE1D37BF0F9D6501073B4BE9F1CCC"; 
-var client_account_address = "0x12788d8D354E5b137032386aA69400d93Ec15B31";
-
-/*
- // fetch nonce of sender address tracked at TxRelay
-    let clientAddressNonce = await txRelay.methods.nonce(client_account_address).call();
-
-    // fetch nonce of sender address
-    let serverAddressNonce = await web3.eth.getTransactionCount(server_account_address);
-
-    let updateMessage = 'Here it updates message again';
-    let messageBoxAbi = JSON.parse(compiledMessageBox.interface);
-    let rawTx = await MetaTransactionClient.createTx(messageBoxAbi, 'setMessage', [updateMessage], {
-      to: messageBox.options.address,
-      value: 0,
-      nonce: parseInt(clientAddressNonce), // nonce must match the one at TxRelay contract
-      gas: 2000000,
-      gasPrice: 2000000,
-      gasLimit: 2000000
-    });
-    txToServer = await MetaTransactionClient.createRawTxToRelay(
-      rawTx,
-      client_account_address,
-      client_account_private_key,
-      txRelay.options.address
-    );
-*/
-console.log("rawTx");
-console.log(rawTx);
-console.log("rawTx-Sig");
-console.log(txToServer.sig);
-/*
-    let signedTxToRelay = await MetaTransactionServer.createRawTxToRelay(
-      JSON.parse(compiledTxRelay.interface),
-      txToServer.sig,
-      txToServer.to,
-      txToServer.from,
-      txToServer.data,
-      {
-        "gas": 2000000,
-        "gasPrice": 2000000,
-        "gasLimit": 2000000,
-        "value": 0,
-        "to": txRelay.options.address,
-        "nonce": parseInt(serverAddressNonce), // nonce of address which signs tx ad server
-        "from": server_account_address
-      },
-      server_account_private_key
-    );
-
-    const result = await web3.eth.sendSignedTransaction('0x' + signedTxToRelay);
-    message = await messageBox.methods.message().call();
-    //assert.equal(updateMessage, message);
-*/
-
 
 }
 
