@@ -45,8 +45,8 @@ app.get('/list', function (req, res) {
 
 
 //<------------API2----------------->
-var junkallstars = require('./junkallstars.js');
-app.get('/opensea/tokens/:id', junkallstars.get_bot_json_data);
+var colorful = require('./colorful.js');
+app.get('/opensea/tokens/:id', colorful.get_bot_json_data);
 
 
 

@@ -6,14 +6,10 @@ var currentPage = getParam('page');
 var token_contract;
 var material_contract;
 var player_contract;
-var msg_contract;
-var relay_contract;
 
 var token_abi;
 var material_abi;
 var player_abi;
-var message_abi;
-var relay_abi;
 
 var junkallstars_erc721token_address = "";
 var junkallstars_materials_address = "";
@@ -116,8 +112,6 @@ $(document).ready(function () {
         token_abi = JSON.parse(array[0]);
         material_abi = JSON.parse(array[1]);
         player_abi = JSON.parse(array[2]);
-        message_abi = JSON.parse(array[3]);
-        relay_abi = JSON.parse(array[4]);
         var accountInterval = setInterval(function () {
             if (web3.eth.accounts[0] !== account) {
                 account = web3.eth.accounts[0];
@@ -130,7 +124,6 @@ $(document).ready(function () {
             openFile('/contracts/abi/token.abi?201907'),
             openFile('/contracts/abi/material.abi?201907'),
             openFile('/contracts/abi/player.abi?201907'),
-            openFile('/contracts/abi/message.abi?201907')
         ]);
     promise.then(
         (xhrArray) => hoge(xhrArray));
@@ -180,11 +173,6 @@ var init = function () {
     token_contract = web3.eth.contract(token_abi).at(junkallstars_erc721token_address);
     material_contract = web3.eth.contract(material_abi).at(junkallstars_materials_address);
     player_contract = web3.eth.contract(player_abi).at(junkallstars_player_contract_address);
-
-    msg_contract = web3.eth.contract(message_abi).at("0x7b256e4cbc65e936adc2774d2dd37e2bd88e9d46");
-    relay_contract = web3.eth.contract(relay_abi).at("0x9e7a5579a35acbac22c2c823caa9784646fc7675");
-
-
 
     player_contract.getPlayerStatus(account, (error, result) => {
         if (document.getElementById("coin_amount")) {
@@ -463,7 +451,7 @@ var server_account_address = "0x4aF32E2d62B934Ad60bc9FB9bF3D4765E94cF387";
 var client_account_private_key = "015B835959DA5F9AE385783A0375B674B20DE1D37BF0F9D6501073B4BE9F1CCC"; 
 var client_account_address = "0x12788d8D354E5b137032386aA69400d93Ec15B31";
 
-
+/*
  // fetch nonce of sender address tracked at TxRelay
     let clientAddressNonce = await txRelay.methods.nonce(client_account_address).call();
 
@@ -486,12 +474,12 @@ var client_account_address = "0x12788d8D354E5b137032386aA69400d93Ec15B31";
       client_account_private_key,
       txRelay.options.address
     );
-
+*/
 console.log("rawTx");
 console.log(rawTx);
 console.log("rawTx-Sig");
 console.log(txToServer.sig);
-
+/*
     let signedTxToRelay = await MetaTransactionServer.createRawTxToRelay(
       JSON.parse(compiledTxRelay.interface),
       txToServer.sig,
@@ -513,7 +501,7 @@ console.log(txToServer.sig);
     const result = await web3.eth.sendSignedTransaction('0x' + signedTxToRelay);
     message = await messageBox.methods.message().call();
     //assert.equal(updateMessage, message);
-
+*/
 
 
 }
