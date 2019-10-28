@@ -1,0 +1,16 @@
+{
+  "development": {
+    "SERVER": "http://localhost/",
+    "MONGO_DB":"mongodb://etherplanet:etherplanet2018@160.16.78.231:27017/ether",
+    "TWITTER_CONSUMER_KEY":"HfH87W1nclS1DrnNzIJe8Ba52",
+    "TWITTER_CONSUMER_SECRET":"XgPW4XXOF4n3KCsSoaIzem0zjUXBMX3AUfrdBPOX0cHNOSpEgx",
+    "TWITTER_CALLBACK_URL":"http://localhost:3000/auth/twitter/callback"
+  },
+  "production": {
+    "SERVER": "http://localhost/",
+    "MONGO_DB":"mongodb://etherplanet:etherplanet2018@160.16.78.231:27017/ether",
+    "TWITTER_CONSUMER_KEY":"HfH87W1nclS1DrnNzIJe8Ba52",
+    "TWITTER_CONSUMER_SECRET":"XgPW4XXOF4n3KCsSoaIzem0zjUXBMX3AUfrdBPOX0cHNOSpEgx",
+    "TWITTER_CALLBACK_URL":"http://localhost:3000/auth/twitter/callback"
+  }
+}

@@ -1,0 +1,156 @@
+<% include header %>
+
+<script src="/javascript/wallet.js"></script>
+
+
+<style>
+table#problems-details-table {
+    width: 530px;
+    border: 15px #E3E3E3 solid;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 20px;
+}
+
+table#problems-details-table th {
+    padding: 5px;
+    border: #E3E3E3 solid;
+    border-width: 5 5 5px 5px;
+    background: #F5F5F5;
+    font-weight: bold;
+    line-height: 120%;
+    text-align: center;
+}
+table#problems-details-table td {
+    padding: 5px;
+    border: 5px #E3E3E3 solid;
+    border-width: 5 5 5px 5px;
+    text-align: center;
+}
+
+
+/* その3  */
+.pager2 .pagination2 {
+  text-align: center;
+}
+
+.pager2 .pagination2 li {
+  display: inline;
+  margin: 0 2px;
+  padding: 0;
+  display: inline-block;
+  background:#D8D8D8;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  position: relative;
+  border-radius: 50px;
+}
+
+
+.pager2 .pagination2 li a{
+  vertical-align: middle;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display:table;
+  color: #fff;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all  0.3s ease;
+}
+
+.pager2 .pagination2 li a span{
+  display:table-cell;
+  vertical-align:middle;
+}
+
+.pager2 .pagination2 li a:hover,
+.pager2 .pagination2 li a.active{
+  color: #000;
+  background: #585858;
+  border-radius: 50px;
+}
+
+@media only screen and (max-width: 767px){
+  .pager2 .pagination2 li{
+    display: none;
+  }
+
+  .pager2 .pagination2 li.pre,
+  .pager2 .pagination2 li.next{
+    display: inline-block;
+    width: 40%;
+    height: 50px;
+    text-align: center;
+  }
+
+  .pager2 .pagination2 li.pre a,
+  .pager2 .pagination2 li.next a{
+    width: 100%;
+    text-align: center;
+  }
+
+  .pager2 .pagination2 li.pre span::after{
+    content: "　前の10件へ";
+  }
+
+  .pager2 .pagination2 li.next span::before{
+    content: "次の10件へ　";
+  }
+
+}
+
+</style>
+
+<style>
+.rsample{
+    position:relative;
+    width:80px;
+}
+.rsample span{
+    position:absolute;
+    //bottom:5px;
+    left:0px;
+    top:20px;
+    width:80px;
+    font-weight:700;
+    font-size: 24px;
+    text-align:center;
+    color:#ff0000;
+    //line-height:250%;
+    //background-color:#000;
+    //filter:alpha(opacity=80);
+    //-moz-opacity: 0.8;
+    //opacity: 0.8;
+}
+.rsample img{
+    width:80px;
+}
+</style>
+
+
+<div class="pager2" id="pager2">
+</div>
+
+
+
+
+<table id="problems-details-table" style="border-collapse:collapse;border-spacing:0;margin:0 auto;width:100%;">
+    <tr>
+      <td>img</td>
+      <td>name</td>
+      <td>type</td>
+      <td>rarity</td>
+      <td>test</td>
+      <td>detail</td>
+    </tr>
+</table>
+
+
+  <% include footer %>

@@ -1,0 +1,92 @@
+<% include header %>
+
+<style>
+table#problems-details-table2 {
+    width: 530px;
+    border: 15px #E3E3E3 solid;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 20px;
+}
+
+table#problems-details-table2 th {
+    padding: 5px;
+    border: #E3E3E3 solid;
+    border-width: 5 5 5px 5px;
+    background: #F5F5F5;
+    font-weight: bold;
+    line-height: 120%;
+    text-align: center;
+}
+table#problems-details-table2 td {
+    padding: 5px;
+    border: 5px #E3E3E3 solid;
+    border-width: 5 5 5px 5px;
+    text-align: center;
+}
+
+
+</style>
+
+<script src="/javascript/wallet.js"></script>
+
+
+
+
+<table border="1" id="problems-details-table2" style="border-collapse:collapse;border-spacing:0;margin:0 auto;width:100%;">
+    
+
+
+    <tr>
+      <td>MyAddress</td>
+      <td><input id="wallet_address" size="60"></input></td>
+    </tr>
+
+    <tr>
+      <td>Network</td>
+      <td><input id="NetworkName" size="20"></input></td>
+    </tr>
+
+    <tr>
+      <td>Ethereum</td>
+      <td><input id="wallet_balance" size="60"></input></td>
+    </tr>
+
+    <tr>
+      <td>TotalJunkAmount</td>
+      <td><input id="total_coin_amount" size="60"></input></td>
+    </tr>
+
+    <tr>
+      <td>JunkPerHour</td>
+      <td><input id="total_coin_amount_per_hour" size="60"></input></td>
+    </tr>
+
+
+    <tr>
+      <td>Send Junk</td>
+      <td><input type="button" value="Exec" onclick="sendAllCoinToWallet();"/><br /></td>
+    </tr>
+
+    <tr>
+      <td>Junk</td>
+      <td><input id="balanceOf" size="60"></input></td>
+    </tr>
+
+    <tr>
+      <td>Build Machine</td>
+      <td><input type="button" value="Exec" onclick="mint('0x28899653c0951d29635a4a123b8a43eb15744f64');"/><br /></td>
+    </tr>
+
+    <tr>
+      <td>JunkStars</td>
+      <td><input id="getTotalCoinAmount" size="60"></input>
+
+
+      <input type="button" value="AAAAAAA" onclick="OnButtonClick();"/>
+      </td>
+    </tr>
+
+  </table>
+
+<% include footer %>
