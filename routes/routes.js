@@ -50,5 +50,3 @@ app.get('/opensea/tokens/:id', junkallstars.get_bot_json_data);
 
 
 
-var relay = require('./relay.js');
-app.get('/relay', relay.hoge);
