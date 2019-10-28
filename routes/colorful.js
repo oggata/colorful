@@ -27,7 +27,6 @@ exports.get_bot_json_data = async function (req, res) {
 
     var hashids = new Hashids("junkbot");
     var _name = hashids.encode(_strCode.slice(5));
-    //806749883200
 
     var _json = ''
     _json += '{';
@@ -36,7 +35,7 @@ exports.get_bot_json_data = async function (req, res) {
     _json += '"background_color": "ffffff",';
     _json += '"symbol": "JAT",';
     _json += '"description": "find new",';
-    _json += '"external_url": "http://junkallstars.com/token/' + _seqId + '",';
+    _json += '"external_url": "https://oggata-colorful.glitch.me/' + _seqId + '",';
     _json += '"wiki_link": "https://opensea.readme.io/page/cryptokitties",';
     _json += '"attributes": [';
     _json += '    {';
