@@ -49,6 +49,7 @@ exports.get_total_supply = async function (req, res) {
 }
 
 exports.get_owned_list = async function (req, res) {
+    var currentPage = req.param('page') || 1;
     var address = req.param('address') || "0x6303b56db2d46fb34EE996E8f3Db58793e7d97dE";
     var cc = new ColorfulContract();
     var tokens = await cc.getTokensOf(address);
@@ -59,10 +60,27 @@ exports.get_owned_list = async function (req, res) {
         console.log(card);
         array.push(card);
     }
+    var elementsPerPage = req.param('element_per_page') || 5;
+    var elemetStartId = 1 + (currentPage - 1) * elementsPerPage;
+    var elementFinishId = elemetStartId + elementsPerPage;
+    var maxPageNum = Math.ceil(tokens.length / elementsPerPage);
+    var itemCount = tokens.length;
+    var endPageNumber = Math.ceil(itemCount / elementsPerPage);
+    var _maxloopCnt = elementFinishId;
+    if (elementFinishId >= tokens.length) {
+        _maxloopCnt = tokens.length;
+    }
     var _json = ''
     _json += '{';
+    _json += '"currentPage": "' + currentPage + '",';
+    _json += '"itemCount": "' + itemCount + '",';
+    _json += '"elementsPerPage": "' + elementsPerPage + '",';
+    _json += '"endPageNumber": "' + endPageNumber + '",';
+    _json += '"elemetStartId": "' + elemetStartId + '",';
+    _json += '"elementFinishId": "' + elementFinishId + '",';
     _json += '"list": [';
-    for(var j=0;j<array.length;j++){
+    //for(var j=0;j<array.length;j++){
+    for (var j = elemetStartId; j < _maxloopCnt; j++) {
         _json += '{';
         _json += '"id": "' + array[j][0] + '",';
         _json += '"price": "' + array[j][1] + '",';
@@ -72,7 +90,12 @@ exports.get_owned_list = async function (req, res) {
         _json += '"cooldownFinishTime": "' + array[j][5] + '",';
         _json += '"createdAt": "' + array[j][6] + '"';
         _json += '}';
+        /*
         if(j != array.length - 1){
+            _json += ',';
+        }
+        */
+        if(j != _maxloopCnt - 1){
             _json += ',';
         }
     }

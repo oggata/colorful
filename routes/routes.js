@@ -1,8 +1,6 @@
 var app = module.parent.exports;
 var passport = app.get("passport");
 var crypto = require("crypto");
-//var UserModel = require('../models/userModel.js');
-//var UserPlanetModel = require('../models/userPlanetModel.js');
 var fs = require('fs');
 var util = require('util');
 var log_file = fs.createWriteStream('debug.log', {
