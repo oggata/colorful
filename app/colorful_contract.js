@@ -1,5 +1,4 @@
-var httpProvider = "https://rinkeby.infura.io/";
-var contractAddress = "0x3d7a94657173d42d7007a0ebc19fa85b9d5813bc";
+var contractAddress = "0x17229bc4436a933c54c4031a0552bf361af5c669";
 var etherScanURL = "https://rinkeby.etherscan.io/tx/";
 
 const fs = require('fs');
@@ -7,9 +6,9 @@ const EthereumTx = require('ethereumjs-tx');
 var abi = JSON.parse(fs.readFileSync('./contracts/abi/token.abi', "utf8"));
 
 var Web3 = require('web3');
-//console.log(web3.currentProvider);
+const { fromInjected, fromConnection } = require('@openzeppelin/network');
 var web3;
-//自分のアカウントとひもづく情報を取得する
+
 if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
 } else {
@@ -28,23 +27,75 @@ var ColorfulContract = function () {
         return new web3.eth.Contract(abi, contractAddress);
     };
     var Tx = require('ethereumjs-tx');
-    this.getCardData = async function (id) {
 
+    this.sendMintToAddress = async(address,pk) => {
+        const injected = await fromConnection('wss://rinkeby.infura.io/ws/v3/95202223388e49f48b423ea50a70e336', { 
+            gsn: { 
+                signKey: pk 
+            } 
+        });
+        const instance = new injected.lib.eth.Contract(this.abi, contractAddress);
+        const tx = await instance.methods.mintToAddress(address).send({
+            from: address
+        });
+        return tx;
+    };
+
+    this.getBaseTokenURI = async function (id) {
         return new Promise((resolve, reject) => {
             const contract = new web3.eth.Contract(abi,contractAddress);
-            //contract.methods.getRobotName(id).call().then((result) => {
-                contract.methods.getCardData(id).call().then((result2) => {
-                    console.log(result2);
-                    var _data = [];
-                    //_data.push(result);
-                    for(i=0;i<=result2.length;i++){
-                        _data.push(result2[i]);
-                    }
-                    resolve(_data);
+                contract.methods.baseTokenURI().call().then((result) => {
+                    console.log(result);
+                    resolve(result);
                 });
-            //});
         });
     };
+
+    this.getTotalSupply = async function (id) {
+        return new Promise((resolve, reject) => {
+            const contract = new web3.eth.Contract(abi,contractAddress);
+                contract.methods.totalSupply().call().then((result) => {
+                    console.log(result);
+                    resolve(result);
+                });
+        });
+    };
+
+    this.getTokensOf = async function (address) {
+        return new Promise((resolve, reject) => {
+            const contract = new web3.eth.Contract(abi,contractAddress);
+                contract.methods.tokensOf(address).call().then((result) => {
+                    console.log(result);
+                    resolve(result);
+                });
+        });
+    };
+
+    this.getCardData1 = async function (id) {
+        return new Promise((resolve, reject) => {
+            const contract = new web3.eth.Contract(abi,contractAddress);
+                contract.methods.getCardData(id).call().then((result) => {
+                    console.log(result);
+                    resolve(result);
+                });
+        });
+    };
+
+    this.getCardData = async function (id) {
+        return new Promise((resolve, reject) => {
+            const contract = new web3.eth.Contract(abi,contractAddress);
+            contract.methods.getCardData(id).call().then((result2) => {
+                console.log(result2);
+                var _data = [];
+                //_data.push(result);
+                for(i=0;i<=result2.length;i++){
+                    _data.push(result2[i]);
+                }
+                resolve(_data);
+            });
+        });
+    };
+
 };
 module.exports = ColorfulContract;
 
