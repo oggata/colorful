@@ -9,10 +9,6 @@ var config = require('./config.json')[app.get('env')];
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
-//app.use(favicon(__dirname + '/public/images/planet.ico'));
-app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(function (req, res, next) {
