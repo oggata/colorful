@@ -2,6 +2,34 @@ var web3;
 var content;
 var account = null;
 var currentPage = getParam('page') || 1;
+async function getAccount() {
+    var account = 0;
+    if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+            await ethereum.enable();
+        } catch (error) {
+            console.error(error);
+        }
+    } else if (web3) {
+        window.web3 = new Web3(web3.currentProvider);
+    } else {
+        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+    }
+    if (window.web3 !== 'undefined') {
+        web3.eth.getAccounts((error, result) => {
+            if (error) {
+                console.log("error:");
+                console.log(error);
+            } else {
+                console.log("result:");
+                console.log(result);
+                account = result;
+            }
+        });
+    }
+    return account;
+}
 
 function getParam(name, url) {
     if (!url) url = window.location.href;
@@ -16,20 +44,114 @@ $(document).ready(function () {
     if (!window.localStorage) {
         alert("localStorage is not available on your browser");
     }
-    init();
-});
+    getAccount();
+    window.addEventListener('load', function () {
+        if (typeof web3 !== 'undefined') {
+            console.log('Web3：' + web3.currentProvider.constructor.name);
+        } else {
+            console.log('please install MetaMask');
+        }
+    })
+    if (document.getElementById('param_charactor_id')) {
+        var param_charactor_id = document.getElementById('param_charactor_id').value;
+        //console.log(param_charactor_id);
+    }
+    //アドレスのETH量を取得
+    function getBalance(_address) {
+        web3.eth.getBalance(_address, (error, balance) => {
+            if (error) return;
+            console.log(JSON.stringify(balance, null, 2));
+        });
+    }
 
+    function openFile(url) {
+        const p = new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        console.log("ok1");
+                        resolve(xhr.responseText);
+                    }
+                }
+            };
+        });
+        return p;
+    }
+    var accountInterval = setInterval(function () {
+        if (web3.eth.accounts[0] !== account) {
+            account = web3.eth.accounts[0];
+            init();
+        }
+    }, 3000);
+    /*
+        function hoge(array) {
+            token_abi = JSON.parse(array[0]);
+            var accountInterval = setInterval(function () {
+                if (web3.eth.accounts[0] !== account) {
+                    account = web3.eth.accounts[0];
+                    init();
+                }
+            }, 100);
+        }
+        const promise = Promise.all(
+            [
+                openFile('/contracts/abi/token.abi?201907'),
+            ]);
+        promise.then(
+            (xhrArray) => hoge(xhrArray));
+            */
+});
 var init = function () {
+    const networkId = web3.version.network;
+    if (networkId) {
+        if (networkId == 4) {}
+        if (networkId != 4) {
+            if (networkId == 1) {
+                alert("Mainnet is not availabe. please connect Rinkeby. ");
+            } else
+            if (networkId == 3) {
+                alert("Ropsten is not availabe. please connect Rinkeby. ");
+            } else
+            if (networkId == 42) {
+                alert("Kovan is not availabe. please connect Rinkeby. ");
+            } else {
+                alert("This network is not availabe. please connect Rinkeby.");
+            }
+            location.href = "http://" + location.hostname + ":" + location.port;
+        }
+    }
+    if (document.getElementById("network")) {
+        account = web3.eth.getAccounts();
+        if (web3.currentProvider.isMetaMask) {
+            document.getElementById("network").value = "MetaMask";
+        } else if (web3.currentProvider.isTrust) {
+            document.getElementById("network").value = "Trust";
+        } else {
+            document.getElementById("network").value = web3.currentProvider.host;
+        }
+    }
+    //NetworkName
+    if (document.getElementById("NetworkName")) {
+        document.getElementById("NetworkName").value = "Rinkeby";
+    }
+    if (document.getElementById("wallet_address")) {
+        document.getElementById("wallet_address").value = account;
+    }
+    web3.eth.getBalance(account, (error, balance) => {
+        if (error) {} else {
+            if (document.getElementById("wallet_balance")) {
+                document.getElementById("wallet_balance").value = balance / 1000000000000000000;
+            }
+        }
+    });
+    //list
     var tbodyElement = document.createElement('tbody');
     var trElement = document.createElement('tr');
     var request = new XMLHttpRequest();
-    var strWalletAddress = localStorage.getItem('storage_wallet_address');
-    var strWalletPk = localStorage.getItem('storage_wallet_pk');
-    if(!strWalletAddress){
-        //redirect
-        alert("please create your address");
-    }
-    request.open('GET', "/contract/get_owned_list?address=" + strWalletAddress, true);
+    request.open('GET', "/contract/get_owned_list", true);
     request.responseType = 'json';
     request.onload = function () {
         var res = this.response;
@@ -49,11 +171,6 @@ var init = function () {
         if (myh1) {
             myh1.innerHTML = pagerhtml;
         }
-
-        if(res["list"].length == 0){
-            alert("You don't have items");
-        }
-
         for (var i = 0; i < res["list"].length; i++) {
             var data = res["list"];
             var trElement = document.createElement('tr'),

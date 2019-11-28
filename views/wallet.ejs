@@ -1,0 +1,61 @@
+<% include header %>
+
+<script src="/javascript/member.js"></script>
+
+<style>
+table#problems-details-table2 {
+    width: 530px;
+    border: 15px #E3E3E3 solid;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 20px;
+}
+
+table#problems-details-table2 th {
+    padding: 5px;
+    border: #E3E3E3 solid;
+    border-width: 5 5 5px 5px;
+    background: #F5F5F5;
+    font-weight: bold;
+    line-height: 120%;
+    text-align: center;
+}
+table#problems-details-table2 td {
+    padding: 5px;
+    border: 5px #E3E3E3 solid;
+    border-width: 5 5 5px 5px;
+    text-align: center;
+}
+
+</style>
+
+<input type="hidden" name="pk" value="xxxx">
+<table border="1" id="problems-details-table2" style="border-collapse:collapse;border-spacing:0;margin:0 auto;width:100%;">
+    <tr>
+      <td>MyAddress</td>
+      <td><input id="address" size="60"></input></td>
+    </tr>
+
+    <tr>
+      <td>Network</td>
+      <td><input id="NetworkName" size="20"></input></td>
+    </tr>
+
+    <tr>
+      <td>Ethereum</td>
+      <td><input id="wallet_balance" size="60"></input></td>
+    </tr>
+
+    <tr>
+      <td>Reset</td>
+      <td><input type="button" value="show pk" onclick="showPK();"/></input>
+      <input type="button" value="test" onclick="test();"/></input></td>
+    </tr>
+
+    <tr>
+      <td>Reset</td>
+      <td><input type="button" value="remove wallet data" onclick="removeWalletData();"/></input></td>
+    </tr>
+
+  </table>
+<% include footer %>
